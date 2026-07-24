@@ -1,16 +1,12 @@
 async function sendEmail() {
 
     const email = document.getElementById("email").value;
-
     const message = document.getElementById("message");
 
     if (!email) {
-
         message.style.color = "red";
         message.innerText = "Please enter an email address.";
-
         return;
-
     }
 
     message.style.color = "#555";
@@ -18,46 +14,31 @@ async function sendEmail() {
 
     try {
 
-        const response = await fetch("/send-email", {
-
+        const response = await fetch("/.netlify/functions/send-email", {
             method: "POST",
-
             headers: {
-
                 "Content-Type": "application/json"
-
             },
-
             body: JSON.stringify({
-
-                email
-
+                email: email
             })
-
         });
 
         const result = await response.json();
 
-        if(result.success){
-
-            message.style.color="green";
-
-        }else{
-
-            message.style.color="red";
-
+        if (!response.ok) {
+            throw new Error(result.message || "Unknown server error");
         }
 
-        message.innerText=result.message;
+        message.style.color = "green";
+        message.innerText = result.message;
+
+    } catch (error) {
+
+        console.error("Frontend Error:", error);
+
+        message.style.color = "red";
+        message.innerText = error.message || "Something went wrong.";
 
     }
-
-    catch(error){
-
-        message.style.color="red";
-
-        message.innerText="Something went wrong.";
-
-    }
-
 }
