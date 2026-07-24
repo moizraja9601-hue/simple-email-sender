@@ -1,0 +1,15 @@
+{
+  "name": "simple-email-sender",
+  "version": "1.0.0",
+  "description": "Simple HTML Email Sender",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js"
+  },
+  "dependencies": {
+    "dotenv": "^16.4.5",
+    "express": "^4.21.0",
+    "nodemailer": "^6.9.15"
+  }
+}
