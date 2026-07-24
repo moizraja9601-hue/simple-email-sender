@@ -97,17 +97,21 @@ exports.handler = async (event) => {
             html,
 
             attachments: [
-                {
-                    filename: "logo.png",
-                    path: logoPath,
-                    cid: "logo"
-                },
-                {
-                    filename: "banner.jpg",
-                    path: bannerPath,
-                    cid: "banner"
-                }
-            ]
+  {
+    filename: "logo.png",
+    path: logoPath,
+    cid: "logo",
+    contentDisposition: "inline",
+    contentType: "image/png"
+  },
+  {
+    filename: "banner.jpg",
+    path: bannerPath,
+    cid: "banner",
+    contentDisposition: "inline",
+    contentType: "image/jpeg"
+  }
+]
 
         });
 
