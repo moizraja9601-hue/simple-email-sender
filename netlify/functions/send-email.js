@@ -48,8 +48,9 @@ exports.handler = async (event) => {
 
 
         const filePath = path.join(
-            __dirname,
-            "../../templates/email.html"
+          process.cwd(),
+         "templates",
+          "email.html"
         );
 
 
