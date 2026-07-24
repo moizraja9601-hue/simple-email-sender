@@ -4,113 +4,133 @@ const path = require("path");
 
 exports.handler = async (event) => {
 
+    // Allow only POST
     if (event.httpMethod !== "POST") {
         return {
             statusCode: 405,
             body: JSON.stringify({
-                success:false,
-                message:"Method not allowed"
+                success: false,
+                message: "Method not allowed"
             })
         };
     }
-
 
     try {
 
         const { email } = JSON.parse(event.body);
 
-
         if (!email) {
             return {
-                statusCode:400,
-                body:JSON.stringify({
-                    success:false,
-                    message:"Email is required"
+                statusCode: 400,
+                body: JSON.stringify({
+                    success: false,
+                    message: "Email is required"
                 })
             };
         }
 
-
-        const transporter = nodemailer.createTransport({
-
-            host: process.env.SMTP_HOST,
-
-            port: Number(process.env.SMTP_PORT),
-
-            secure:false,
-
-            auth:{
-                user:process.env.SMTP_USER,
-                pass:process.env.SMTP_PASS
-            }
-
-        });
-
-
-        const filePath = path.join(
-          process.cwd(),
-         "templates",
-          "email.html"
+        // Email template
+        const templatePath = path.join(
+            process.cwd(),
+            "templates",
+            "email.html"
         );
 
+        if (!fs.existsSync(templatePath)) {
+            throw new Error(`Template not found: ${templatePath}`);
+        }
 
-        let html = fs.readFileSync(filePath,"utf8");
+        let html = fs.readFileSync(templatePath, "utf8");
 
+        html = html.replace(/{{name}}/g, "Hassan");
+        html = html.replace(/{{amount}}/g, "$250.00");
+        html = html.replace(/{{transactionId}}/g, "TXN-2026-0001");
+        html = html.replace(/{{status}}/g, "Completed");
+        html = html.replace(/{{date}}/g, new Date().toLocaleString());
 
-        html = html.replace(/{{name}}/g,"Hassan");
-        html = html.replace(/{{amount}}/g,"$250.00");
-        html = html.replace(/{{transactionId}}/g,"TXN-2026-0001");
-        html = html.replace(/{{status}}/g,"Completed");
-        html = html.replace(/{{date}}/g,new Date().toLocaleString());
+        // SMTP
+        const transporter = nodemailer.createTransport({
+            host: process.env.SMTP_HOST,
+            port: Number(process.env.SMTP_PORT),
+            secure: false,
+            auth: {
+                user: process.env.SMTP_USER,
+                pass: process.env.SMTP_PASS
+            }
+        });
 
+        // Verify SMTP
+        await transporter.verify();
 
+        // Image paths
+        const logoPath = path.join(
+            process.cwd(),
+            "public",
+            "images",
+            "logo.png"
+        );
 
+        const bannerPath = path.join(
+            process.cwd(),
+            "public",
+            "images",
+            "banner.jpg"
+        );
+
+        if (!fs.existsSync(logoPath)) {
+            throw new Error(`Logo not found: ${logoPath}`);
+        }
+
+        if (!fs.existsSync(bannerPath)) {
+            throw new Error(`Banner not found: ${bannerPath}`);
+        }
+
+        // Send email
         await transporter.sendMail({
 
-            from:`"Simple Email Sender" <${process.env.MAIL_FROM}>`,
+            from: `"Simple Email Sender" <${process.env.MAIL_FROM}>`,
 
-            to:email,
+            to: email,
 
-            subject:"🎉 Transaction Successful",
+            subject: "🎉 Transaction Successful",
 
-            html
+            html,
+
+            attachments: [
+                {
+                    filename: "logo.png",
+                    path: logoPath,
+                    cid: "logo"
+                },
+                {
+                    filename: "banner.jpg",
+                    path: bannerPath,
+                    cid: "banner"
+                }
+            ]
 
         });
 
-
-
         return {
-
-            statusCode:200,
-
-            body:JSON.stringify({
-
-                success:true,
-
-                message:"Email sent successfully!"
-
+            statusCode: 200,
+            body: JSON.stringify({
+                success: true,
+                message: "Email sent successfully!"
             })
-
         };
 
+    } catch (error) {
 
-    } catch(error){
-
-        console.log(error);
-
+        console.error("========== EMAIL ERROR ==========");
+        console.error(error);
+        console.error("================================");
 
         return {
-
-            statusCode:500,
-
-            body:JSON.stringify({
-
-                success:false,
-
-                message:"Failed to send email"
-
+            statusCode: 500,
+            body: JSON.stringify({
+                success: false,
+                message: error.message
             })
-
         };
 
     }

@@ -14,21 +14,23 @@
             <td align="center">
 
                 <table width="650" cellpadding="0" cellspacing="0"
-                    style="background:#ffffff;border-radius:12px;overflow:hidden;">
+                    style="background:#ffffff;border-radius:12px;overflow:hidden;max-width:650px;">
 
                     <!-- Header -->
                     <tr>
                         <td align="center" style="background:#4F46E5;padding:35px;">
 
-                            <img src="https://simple-email-sender.netlify.app/images/logo.png"
-                              alt="Logo"
-                              width="180">>
+                            <img
+                                src="cid:logo"
+                                alt="Logo"
+                                width="180"
+                                style="display:block;margin:0 auto;border:0;outline:none;text-decoration:none;">
 
-                            <h1 style="color:#ffffff;margin:20px 0 10px 0;">
+                            <h1 style="color:#ffffff;margin:20px 0 10px 0;font-size:32px;">
                                 Transaction Successful
                             </h1>
 
-                            <p style="color:#e5e7eb;font-size:16px;line-height:28px;">
+                            <p style="color:#e5e7eb;font-size:16px;line-height:28px;margin:0;">
                                 Thank you for choosing our services.
                                 We are pleased to inform you that your recent
                                 transaction has been completed successfully.
@@ -41,9 +43,11 @@
                     <tr>
                         <td>
 
-                            <img src="https://simple-email-sender.netlify.app/images/banner.jpg"
-                                width="100%"
-                                alt="Banner">
+                            <img
+                                src="cid:banner"
+                                alt="Banner"
+                                width="650"
+                                style="display:block;width:100%;max-width:650px;height:auto;border:0;outline:none;text-decoration:none;">
 
                         </td>
                     </tr>
@@ -52,7 +56,7 @@
                     <tr>
                         <td style="padding:40px;">
 
-                            <h2 style="color:#111827;">
+                            <h2 style="color:#111827;margin-top:0;">
                                 Hello {{name}},
                             </h2>
 
@@ -71,10 +75,10 @@
 
                             </p>
 
-                            <!-- Transaction Card -->
+                            <!-- Transaction Details -->
 
                             <table width="100%" cellpadding="15" cellspacing="0"
-                                style="margin-top:30px;border:1px solid #dddddd;border-radius:8px;">
+                                style="margin-top:30px;border:1px solid #dddddd;border-collapse:collapse;">
 
                                 <tr>
                                     <td><strong>Amount</strong></td>
@@ -100,17 +104,20 @@
 
                             <!-- Button -->
 
-                            <table width="100%" style="margin-top:40px;">
+                            <table width="100%" cellpadding="0" cellspacing="0" style="margin-top:40px;">
                                 <tr>
                                     <td align="center">
 
                                         <a href="https://example.com"
-                                            style="background:#4F46E5;
-                                            color:white;
-                                            padding:16px 35px;
-                                            text-decoration:none;
-                                            border-radius:6px;
-                                            display:inline-block;">
+                                            style="
+                                                background:#4F46E5;
+                                                color:#ffffff;
+                                                text-decoration:none;
+                                                padding:16px 35px;
+                                                display:inline-block;
+                                                border-radius:6px;
+                                                font-weight:bold;
+                                                font-size:16px;">
 
                                             View Transaction
 
@@ -119,8 +126,6 @@
                                     </td>
                                 </tr>
                             </table>
-
-                            <!-- Extra Content -->
 
                             <h3 style="margin-top:50px;color:#111827;">
                                 Need Assistance?
@@ -132,7 +137,7 @@
                                 transaction or notice any unusual activity,
                                 please contact our support team immediately.
 
-                                We are available 24/7 to help you.
+                                Our support team is available 24/7 to help you.
 
                             </p>
 
@@ -145,31 +150,29 @@
                         <td align="center"
                             style="background:#111827;color:#d1d5db;padding:35px;">
 
-                            <h3 style="color:#ffffff;">
+                            <h3 style="color:#ffffff;margin-top:0;">
                                 Simple Email Sender
                             </h3>
 
-                            <p>
-
+                            <p style="margin:10px 0;">
                                 support@example.com
-
                             </p>
 
-                            <p>
+                            <p style="margin:20px 0;">
 
                                 <a href="https://example.com"
                                     style="color:#ffffff;text-decoration:none;">
                                     Privacy Policy
                                 </a>
 
-                                |
+                                &nbsp;|&nbsp;
 
                                 <a href="https://example.com"
                                     style="color:#ffffff;text-decoration:none;">
                                     Terms
                                 </a>
 
-                                |
+                                &nbsp;|&nbsp;
 
                                 <a href="https://example.com"
                                     style="color:#ffffff;text-decoration:none;">
